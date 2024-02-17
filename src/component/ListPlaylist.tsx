@@ -1,6 +1,8 @@
 /*import * as React from 'react';*/
 
-import {Grid, Card, CardActionArea, CardMedia, CardContent, Typography  } from "@mui/material";
+import {Grid, Card, CardActionArea, CardMedia, CardContent, Typography, IconButton  } from "@mui/material";
+/*import MoreVertIcon from "@mui/icons-material/MoreVert";*/
+import MoreVertButton from "../component/MoreVertButton.tsx";
 
 
 export default function ListPlaylist() {
@@ -16,18 +18,14 @@ export default function ListPlaylist() {
                                 height="250"
                                 image={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                             />
-                            <CardContent >
-                                <Grid justifyContent="center">
-                                    <Typography variant="body2" color="text.secondary">
-                                        Titre
-                                    </Typography>
-                                </Grid>
-                            </CardContent>
-                            {/*   <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                    <FavoriteIcon />
+                            <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 60 }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1, textAlign: 'center' }}>
+                                    Playlist
+                                </Typography>
+                                <IconButton aria-label="add to favorites" sx={{ marginLeft: 'auto' }}>
+                                    <MoreVertButton />
                                 </IconButton>
-                            </CardActions>*/}
+                            </CardContent>
                         </CardActionArea>
                     </Card>
                 </Grid>
