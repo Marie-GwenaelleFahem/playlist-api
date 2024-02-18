@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { MouseEvent } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Menu, { MenuProps } from '@mui/material/Menu';
@@ -14,6 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
 import DialogActions from '@mui/material/DialogActions';
+import { TextField } from "@mui/material";
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -68,8 +69,11 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export default function CustomizedMenus() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [dialogOpen, setDialogOpen] = React.useState(false);
+    const [editDialogOpen, setEditDialogOpen] = React.useState(false);
+    const [editedContent, setEditedContent] = React.useState('');
+    const [itemToDelete, setItemToDelete] = React.useState<number>(-1); // Assurez-vous que itemToDelete est de type number, pas number | null
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -85,6 +89,29 @@ export default function CustomizedMenus() {
         setDialogOpen(false);
     };
 
+    const handleEditDialogOpen = () => {
+        setEditDialogOpen(true);
+        handleClose();
+    };
+
+    const handleEditDialogClose = () => {
+        setEditDialogOpen(false);
+    };
+
+    const handleSaveChanges = () => {
+        console.log("Contenu modifié :", editedContent);
+        handleEditDialogClose();
+    };
+
+    const handleDelete = (id: number) => {
+        // Suppose `itemData` est défini en dehors de la fonction
+        const updatedData = itemData.filter(item => item.id !== id);
+        console.log("Element supprimé :", id);
+        // Mettre à jour l'état ou envoyer les données au serveur
+        // setItemData(updatedData);
+    }
+
+
     return (
         <div>
             <IconButton
@@ -93,7 +120,7 @@ export default function CustomizedMenus() {
                 aria-controls={anchorEl ? 'long-menu' : undefined}
                 aria-expanded={anchorEl ? 'true' : undefined}
                 aria-haspopup="true"
-                onClick={handleClick}
+                onClick={handleClick} // Supprimez l'argument supplémentaire ici
             >
                 <MoreVertIcon />
             </IconButton>
@@ -106,11 +133,11 @@ export default function CustomizedMenus() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={handleEditDialogOpen} disableRipple>
                     <EditIcon />
                     Edit
                 </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={() => handleDelete(itemToDelete)}>
                     <DeleteIcon />
                     Delete
                 </MenuItem>
@@ -119,13 +146,16 @@ export default function CustomizedMenus() {
                     Read
                 </MenuItem>
             </StyledMenu>
+
+            {/*Popup de la partie Read*/}
+
             <BootstrapDialog
                 onClose={handleCloseDialog}
                 aria-labelledby="customized-dialog-title"
                 open={dialogOpen}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Modal title
+                    Informations
                     <IconButton
                         aria-label="close"
                         onClick={handleCloseDialog}
@@ -141,12 +171,71 @@ export default function CustomizedMenus() {
                 </DialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        Info de la playlist
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis risus euismod, fermentum
+                        lorem et, eleifend nisi. Ut id tortor in ligula consectetur finibus. Nullam nec nunc non
+                        odio vehicula blandit. Vivamus varius est et orci vehicula, at convallis nisl tempus.
+                        Vivamus a efficitur libero. Duis feugiat justo a magna vehicula, sed sagittis dui sagittis.
+                        Cras sit amet malesuada nulla. Sed auctor ultrices massa, vel eleifend dui pharetra et.
+                        Vivamus lacinia hendrerit nulla, non tincidunt est finibus a. Phasellus nec ligula ac enim
+                        consectetur rutrum. Curabitur vitae lacus nec ligula dignissim scelerisque.
                     </Typography>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleCloseDialog}>
                         Fermer
+                    </Button>
+                </DialogActions>
+            </BootstrapDialog>
+
+            {/*Popup de la partie Edit*/}
+
+            <BootstrapDialog
+                onClose={handleEditDialogClose}
+                aria-labelledby="customized-dialog-title"
+                open={editDialogOpen}
+            >
+                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+                    Edit Information
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleEditDialogClose}
+                        sx={{
+                            position: 'absolute',
+                            right: 8,
+                            top: 8,
+                            color: (theme) => theme.palette.grey[500],
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent dividers>
+                    <Typography gutterBottom>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis risus euismod, fermentum
+                        lorem et, eleifend nisi. Ut id tortor in ligula consectetur finibus. Nullam nec nunc non
+                        odio vehicula blandit. Vivamus varius est et orci vehicula, at convallis nisl tempus.
+                        Vivamus a efficitur libero. Duis feugiat justo a magna vehicula, sed sagittis dui sagittis.
+                        Cras sit amet malesuada nulla. Sed auctor ultrices massa, vel eleifend dui pharetra et.
+                        Vivamus lacinia hendrerit nulla, non tincidunt est finibus a. Phasellus nec ligula ac enim
+                        consectetur rutrum. Curabitur vitae lacus nec ligula dignissim scelerisque.
+                    </Typography>
+                    <TextField
+                        label="Modifier les informations"
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        margin="normal"
+                        value={editedContent}
+                        onChange={(e) => setEditedContent(e.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleEditDialogClose}>
+                        Annuler
+                    </Button>
+                    <Button autoFocus onClick={handleSaveChanges}>
+                        Sauvegarder
                     </Button>
                 </DialogActions>
             </BootstrapDialog>

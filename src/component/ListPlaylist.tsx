@@ -8,10 +8,10 @@ import MoreVertButton from "../component/MoreVertButton.tsx";
 export default function ListPlaylist() {
     return (
 
-        <Grid container spacing={4} justifyContent="center" marginLeft={10}>
+        <Grid container spacing={4}>
             {itemData.map((item) => (
-                <Grid item xs={3.5} key={item.img} >
-                    <Card sx={{ maxWidth: 250}} >
+                <Grid item xs={12} sm={6} md={4} lg={3} key={item.img} display="flex" justifyContent="center" alignItems="center" >
+                    <Card sx={{ maxWidth: 250 }} >
                         <CardActionArea>
                             <CardMedia
                                 component="img"
@@ -36,18 +36,22 @@ export default function ListPlaylist() {
 
 const itemData = [
     {
+        id: 1,
         img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
         title: 'Breakfast',
     },
     {
+        id: 2,
         img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
         title: 'Burger',
     },
     {
+        id: 3,
         img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
         title: 'Camera',
     },
     {
+        id: 4,
         img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
         title: 'Coffee',
     },

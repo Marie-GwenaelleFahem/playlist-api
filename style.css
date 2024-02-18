@@ -10,7 +10,7 @@ body {
 }
 
 header {
-    margin: 20px 0;
+    margin: 0;
     display: flex;
     justify-content: center;
 }
