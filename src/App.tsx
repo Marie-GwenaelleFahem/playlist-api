@@ -1,6 +1,5 @@
 import './App.css'
-import ListPlaylist from "./component/ListPlaylist.tsx";
-import FormAjouterPlaylist from "./component/AjouterPlaylist.tsx";
+import FormAjouterPlaylist from "./component/ListPlaylist.tsx";
 import NavAppBar from "./component/AppBar.tsx";
 
 function App() {
@@ -9,7 +8,7 @@ function App() {
         <>
             <NavAppBar/>
             <FormAjouterPlaylist/>
-            <ListPlaylist/>
+
         </>
     )
 }
