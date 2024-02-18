@@ -27,7 +27,7 @@ interface PlaylistItem {
     image: string;
 }
 
-const FormAjouterPlaylist: React.FC = () => {
+const Playlist: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [playlistData, setPlaylistData] = useState<PlaylistItem[]>([]);
     const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -290,22 +290,4 @@ const ListPlaylist: React.FC<{
     );
 };
 
-/*const InfoDialog: React.FC<{
-    open: boolean,
-    onClose: () => void,
-    playlist: PlaylistItem | null
-}> = ({ open, onClose, playlist }) => {
-    return (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle>{playlist ? playlist.name : ''}</DialogTitle>
-            <DialogContent>
-                <Typography>{playlist ? playlist.description : ''}</Typography>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose}>Close</Button>
-            </DialogActions>
-        </Dialog>
-    );
-};*/
-
-export default FormAjouterPlaylist;
+export default Playlist;
